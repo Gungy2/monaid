@@ -1,8 +1,9 @@
-import "reflect-metadata";
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import os from "os";
-import "./database";
+import Contact from "./entity/Contact";
+import { openDatabase } from "./database";
+import { Connection, getConnection } from "typeorm";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
@@ -10,6 +11,8 @@ declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
+
+var database: Connection | null = null;
 
 const createWindow = async () => {
   // Create the browser window.
@@ -20,6 +23,8 @@ const createWindow = async () => {
       nodeIntegration: true,
     },
   });
+
+  database = await openDatabase();
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
@@ -59,3 +64,9 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+ipcMain.handle("GET_ALL_CONTACTS", async () => {
+  if (database) {
+    return await database.getRepository(Contact).find();
+  }
+});

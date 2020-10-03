@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { ContactAttributes } from "../types";
+import Contact from "../entity/Contact";
+import { ipcRenderer } from "electron";
 
 function Contacts() {
-  const [contacts, setContacts] = useState([] as ContactAttributes[]);
+  const [contacts, setContacts] = useState([] as Contact[]);
 
   useEffect(() => {
-    fetchContacts();
+    ipcRenderer.invoke("GET_ALL_CONTACTS").then(setContacts);
   }, []);
-
-  async function fetchContacts() {
-    //setContacts(await ContactModel.findAll());
-  }
 
   return (
     <div id="contacts">
