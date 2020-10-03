@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { ContactAttributes } from "../types";
-import { ContactModel } from "../database";
 
 function Contacts() {
   const [contacts, setContacts] = useState([] as ContactAttributes[]);
@@ -10,7 +9,7 @@ function Contacts() {
   }, []);
 
   async function fetchContacts() {
-    setContacts(await ContactModel.findAll());
+    //setContacts(await ContactModel.findAll());
   }
 
   return (

@@ -1,6 +1,8 @@
+import "reflect-metadata";
 import { app, BrowserWindow } from "electron";
 import path from "path";
 import os from "os";
+import "./database";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 

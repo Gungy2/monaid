@@ -1,6 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
 import Contacts from "./Contacts";
-import { ContactModel } from "../database";
 import { Contact } from "../types";
 import { useHistory } from "react-router-dom";
 
@@ -18,8 +17,8 @@ function AddContact() {
   }
 
   async function storeContact() {
-    const person = await ContactModel.create(newContact);
-    console.log(await ContactModel.findAll());
+    // const person = await ContactModel.create(newContact);
+    // console.log(await ContactModel.findAll());
     history.push("/contacts");
   }
 
