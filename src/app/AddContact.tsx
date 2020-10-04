@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent } from "react";
-import Contacts from "./Contacts";
-import { Contact } from "../types";
+import Contact from "../entity/Contact";
 import { useHistory } from "react-router-dom";
+import { ipcRenderer } from "electron";
 
 function AddContact() {
   const [newContact, setNewContact] = useState({
@@ -17,47 +17,49 @@ function AddContact() {
   }
 
   async function storeContact() {
-    // const person = await ContactModel.create(newContact);
-    // console.log(await ContactModel.findAll());
+    ipcRenderer.send("ADD_NEW_CONTACT", newContact);
     history.push("/contacts");
   }
 
   return (
-    <div id="contactForm">
-      <label htmlFor="firstName">First Name:</label>
-      <input
-        type="text"
-        name="firstName"
-        id="firstName"
-        value={newContact.firstName}
-        onChange={handleChange}
-      />
-      <label htmlFor="lastName">Last Name:</label>
-      <input
-        type="text"
-        name="lastName"
-        id="lastName"
-        value={newContact.lastName}
-        onChange={handleChange}
-      />
-      <label htmlFor="phone">Phone:</label>
-      <input
-        type="tel"
-        name="phone"
-        id="phone"
-        value={newContact.phone}
-        onChange={handleChange}
-      />
-      <label htmlFor="email">Email:</label>
-      <input
-        type="email"
-        name="email"
-        id="email"
-        value={newContact.email}
-        onChange={handleChange}
-      />
-      <button onClick={storeContact}>Create New Contact</button>
-    </div>
+    <>
+      <h1>Adding new Contact</h1>
+      <div id="contactForm">
+        <label htmlFor="firstName">First Name:</label>
+        <input
+          type="text"
+          name="firstName"
+          id="firstName"
+          value={newContact.firstName}
+          onChange={handleChange}
+        />
+        <label htmlFor="lastName">Last Name:</label>
+        <input
+          type="text"
+          name="lastName"
+          id="lastName"
+          value={newContact.lastName}
+          onChange={handleChange}
+        />
+        <label htmlFor="phone">Phone:</label>
+        <input
+          type="tel"
+          name="phone"
+          id="phone"
+          value={newContact.phone}
+          onChange={handleChange}
+        />
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          value={newContact.email}
+          onChange={handleChange}
+        />
+        <button onClick={storeContact}>Create New Contact</button>
+      </div>
+    </>
   );
 }
 

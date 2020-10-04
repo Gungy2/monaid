@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import os from "os";
 import Contact from "./entity/Contact";
+import Transaction from "./entity/Transaction";
 import { openDatabase } from "./database";
 import { Connection, getConnection } from "typeorm";
 
@@ -68,5 +69,22 @@ app.on("activate", () => {
 ipcMain.handle("GET_ALL_CONTACTS", async () => {
   if (database) {
     return await database.getRepository(Contact).find();
+  }
+});
+
+ipcMain.on("ADD_NEW_CONTACT", (_event, contact: Contact) => {
+  if (database) {
+    database
+      .createQueryBuilder()
+      .insert()
+      .into(Contact)
+      .values(contact)
+      .execute();
+  }
+});
+
+ipcMain.handle("GET_ALL_TRANSACTIONS", async () => {
+  if (database) {
+    return await database.getRepository(Transaction).find();
   }
 });

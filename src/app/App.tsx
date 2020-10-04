@@ -1,7 +1,9 @@
 import React from "react";
 import Contacts from "./Contacts";
 import AddContact from "./AddContact";
+import AddTransaction from "./AddTransaction";
 import { HashRouter as Router, Link, Switch, Route } from "react-router-dom";
+import Transactions from "./Transactions";
 
 const App = () => {
   return (
@@ -16,7 +18,7 @@ const App = () => {
               <Link to="/contacts">Contacts</Link>
             </li>
             <li>
-              <Link to="/add">Add Contact</Link>
+              <Link to="/addContact">Add Contact</Link>
             </li>
             <li>
               <Link to="/transactions">Transactions</Link>
@@ -28,11 +30,14 @@ const App = () => {
         <Route path="/contacts">
           <Contacts />
         </Route>
-        <Route path="/newContact">
+        <Route path="/addContact">
           <AddContact />
         </Route>
         <Route path="/transactions">
-          <h1>TRANSACTIONS NOT YET IMPLEMENTED</h1>
+          <Transactions />
+        </Route>
+        <Route path="/addTransaction/:contactId">
+          <AddTransaction />
         </Route>
         <Route path="/">
           <h1>HOME</h1>

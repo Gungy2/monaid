@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Contact from "../entity/Contact";
 import { ipcRenderer } from "electron";
+import { Link } from "react-router-dom";
 
 function Contacts() {
   const [contacts, setContacts] = useState([] as Contact[]);
@@ -16,6 +17,7 @@ function Contacts() {
           <h2>{`${firstName} ${lastName}`}</h2>
           <h3>{`Phone: ${phone}`}</h3>
           <h3>{`Email: ${email}`}</h3>
+          <Link to={`/addTransaction/${id}`}>Add New Transaction</Link>
         </div>
       ))}
     </div>
