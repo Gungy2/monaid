@@ -5,7 +5,7 @@ import AddTransaction from "./AddTransaction";
 import { HashRouter as Router, Link, Switch, Route } from "react-router-dom";
 import Transactions from "./Transactions";
 
-const App = () => {
+export default function App() {
   return (
     <Router>
       <div>
@@ -45,6 +45,4 @@ const App = () => {
       </Switch>
     </Router>
   );
-};
-
-export default App;
+}

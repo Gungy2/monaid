@@ -2,7 +2,6 @@ import "reflect-metadata";
 import { createConnection } from "typeorm";
 import Contact from "./entity/Contact";
 import Transaction from "./entity/Transaction";
-import { ipcMain } from "electron";
 
 export const openDatabase = () =>
   createConnection({

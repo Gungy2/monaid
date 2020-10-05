@@ -15,7 +15,7 @@ export default class Transaction {
   @Column("date")
   date!: Date;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   mentions?: string;
 
   @ManyToOne(() => Contact, (contact) => contact.transactions)

@@ -4,7 +4,7 @@ import os from "os";
 import Contact from "./entity/Contact";
 import Transaction from "./entity/Transaction";
 import { openDatabase } from "./database";
-import { Connection, getConnection } from "typeorm";
+import { Connection, createQueryBuilder, getConnection } from "typeorm";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
@@ -85,6 +85,27 @@ ipcMain.on("ADD_NEW_CONTACT", (_event, contact: Contact) => {
 
 ipcMain.handle("GET_ALL_TRANSACTIONS", async () => {
   if (database) {
-    return await database.getRepository(Transaction).find();
+    const transactions = await database
+      .getRepository(Transaction)
+      .find({ relations: ["contact"] });
+    return transactions;
+  }
+});
+
+ipcMain.handle("GET_CONTACT", async (_event, id: number) => {
+  if (database) {
+    return await database.getRepository(Contact).findOne(id);
+  }
+});
+
+ipcMain.on("ADD_NEW_TRANSACTION", async (_event, transaction: Transaction) => {
+  console.log(transaction);
+  if (database) {
+    await database
+      .createQueryBuilder()
+      .insert()
+      .into(Transaction)
+      .values(transaction)
+      .execute();
   }
 });
