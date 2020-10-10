@@ -1,0 +1,65 @@
+@import "./variables";
+
+body {
+  background-color: $bg;
+  color: $text;
+  font-family: "Josefin Sans";
+}
+
+nav {
+  ul {
+    margin-top: 1.25em;
+    display: flex;
+    font-size: 2em;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    padding: 0;
+
+    li {
+      list-style: none;
+
+      a {
+        color: white;
+        text-decoration: none;
+        text-shadow: 2px 2px $shadow;
+        padding: 10px 15px;
+        border-radius: 5px;
+
+        &:hover {
+          background-color: $shadow;
+          transition: background-color 0.5s;
+        }
+      }
+    }
+  }
+}
+
+h1 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 5em;
+  letter-spacing: 5px;
+  cursor: default;
+  text-shadow: 2px 2px $shadow;
+
+  &#monaid {
+    transition: letter-spacing 1s;
+    font-weight: 900;
+    color: $red;
+    font-size: 6em;
+    text-shadow: 5px 5px $shadow;
+
+    &:hover {
+      letter-spacing: 20px;
+      transition: letter-spacing 1s;
+    }
+  }
+}
+
+h2 {
+  font-size: 3em;
+  text-shadow: 2px 2px $shadow;
+  letter-spacing: 5px;
+  text-align: center;
+  font-family: "Amatic SC";
+}

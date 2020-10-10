@@ -1,3 +1,5 @@
+import "./style/App.scss"
+
 import React from "react";
 import Contacts from "./Contacts";
 import AddContact from "./AddContact";
@@ -12,9 +14,6 @@ export default function App() {
         <nav>
           <ul>
             <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
               <Link to="/contacts">Contacts</Link>
             </li>
             <li>
@@ -22,6 +21,9 @@ export default function App() {
             </li>
             <li>
               <Link to="/transactions">Transactions</Link>
+            </li>
+            <li>
+              <Link to="/">Statistics</Link>
             </li>
           </ul>
         </nav>
@@ -40,7 +42,9 @@ export default function App() {
           <AddTransaction />
         </Route>
         <Route path="/">
-          <h1>HOME</h1>
+          <h1>Welcome to</h1>
+          <h1 id="monaid">Monaid</h1>
+          <h2>Never forget what's rightfully yours...</h2>
         </Route>
       </Switch>
     </Router>

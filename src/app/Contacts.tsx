@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Contact from "../entity/Contact";
 import { ipcRenderer } from "electron";
 import { Link } from "react-router-dom";
+//import "./style/Contacts.scss"
 
 export default function Contacts() {
   const [contacts, setContacts] = useState([] as Contact[]);
