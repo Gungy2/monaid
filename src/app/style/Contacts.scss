@@ -1,0 +1,82 @@
+@import "./variables";
+
+#contacts {
+  h1 {
+    font-weight: 100;
+    text-align: center;
+    font-size: 5em;
+    letter-spacing: 5px;
+    text-shadow: 2px 2px $shadow;
+    margin: 30px 0;
+  }
+
+  input {
+    background-color: $shadow;
+    margin: auto;
+    text-align: center;
+    font-family: "Josefin Sans";
+    color: $text;
+    font-size: 1.7em;
+    border-radius: 20px;
+  }
+
+  table {
+    table-layout: fixed;
+    white-space: nowrap;
+    width: 90vw;
+    min-width: 700px;
+    text-shadow: 2px 2px $shadow;
+    font-size: 1.5em;
+    margin: 50px auto;
+    border-collapse: collapse;
+
+    tr {
+      border-bottom: 2px solid $shadow;
+    }
+
+    th {
+      padding: 10px;
+      font-size: 1.25em;
+
+      &#row-name {
+        width: 35%;
+      }
+
+      &#row-phone {
+        width: 25%;
+      }
+
+      &#row-email {
+        width: 35%;
+      }
+
+      &#row-trans {
+        width: 10%;
+      }
+    }
+
+    td {
+      padding: 10px;
+      font-size: 1em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &:nth-child(1) {
+        text-transform: capitalize;
+      }
+    }
+
+    img {
+      /* Converts svg to $text */
+      filter: invert(99%) sepia(16%) saturate(311%) hue-rotate(40deg)
+        brightness(99%) contrast(97%);
+      width: 40px;
+
+      &:hover {
+        filter: invert(19%) sepia(8%) saturate(4264%) hue-rotate(176deg)
+          brightness(93%) contrast(94%);
+      }
+    }
+  }
+}

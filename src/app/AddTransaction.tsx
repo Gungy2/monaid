@@ -11,7 +11,9 @@ export default function AddTransaction() {
   const history = useHistory();
   let params: { [key: string]: string } = useParams();
 
+
   useEffect(() => {
+    console.log(params.id);
     ipcRenderer.invoke("GET_CONTACT", params.id).then(setContact);
   }, []);
 

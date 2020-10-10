@@ -29,6 +29,11 @@ rules.push({
   ],
 });
 
+rules.push({
+  test: /\.(png|svg|jpg|gif)$/,
+  use: ["file-loader"],
+});
+
 module.exports = {
   module: {
     rules,

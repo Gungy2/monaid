@@ -18,6 +18,10 @@ var database: Connection | null = null;
 const createWindow = async () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
+    minWidth: 800,
+    maxWidth: 1200,
+    fullscreenable: false,
+    maximizable: false,
     height: 600,
     width: 800,
     webPreferences: {

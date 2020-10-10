@@ -1,9 +1,14 @@
 @import "./variables";
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: $bg;
   color: $text;
   font-family: "Josefin Sans";
+  text-align: center;
 }
 
 nav {
@@ -32,34 +37,4 @@ nav {
       }
     }
   }
-}
-
-h1 {
-  font-weight: 100;
-  text-align: center;
-  font-size: 5em;
-  letter-spacing: 5px;
-  cursor: default;
-  text-shadow: 2px 2px $shadow;
-
-  &#monaid {
-    transition: letter-spacing 1s;
-    font-weight: 900;
-    color: $red;
-    font-size: 6em;
-    text-shadow: 5px 5px $shadow;
-
-    &:hover {
-      letter-spacing: 20px;
-      transition: letter-spacing 1s;
-    }
-  }
-}
-
-h2 {
-  font-size: 3em;
-  text-shadow: 2px 2px $shadow;
-  letter-spacing: 5px;
-  text-align: center;
-  font-family: "Amatic SC";
 }

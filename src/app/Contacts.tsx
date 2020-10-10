@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Contact from "../entity/Contact";
 import { ipcRenderer } from "electron";
 import { Link } from "react-router-dom";
-//import "./style/Contacts.scss"
+import "./style/Contacts.scss";
+import Icon from "../../assets/add_trans.svg";
 
 export default function Contacts() {
   const [contacts, setContacts] = useState([] as Contact[]);
@@ -13,7 +14,8 @@ export default function Contacts() {
   }, []);
 
   return (
-    <>
+    <div id="contacts">
+      <h1>Contacts</h1>
       <input
         type="search"
         name="search-contacts"
@@ -21,26 +23,40 @@ export default function Contacts() {
         value={search}
         onChange={(event) => setSearch(event.target.value)}
       />
-      <div id="contacts">
-        {contacts
-          .filter(
-            ({ firstName, lastName }) =>
-              `${firstName} ${lastName}`
-                .toLowerCase()
-                .includes(search.toLowerCase()) ||
-              `${lastName} ${firstName}`
-                .toLowerCase()
-                .includes(search.toLowerCase())
-          )
-          .map(({ firstName, lastName, phone, email, id }) => (
-            <div className="contact" key={id}>
-              <h2>{`${firstName} ${lastName}`}</h2>
-              <h3>{`Phone: ${phone}`}</h3>
-              <h3>{`Email: ${email}`}</h3>
-              <Link to={`/addTransaction/${id}`}>Add New Transaction</Link>
-            </div>
-          ))}
-      </div>
-    </>
+      <table>
+        <thead>
+          <tr>
+            <th id="row-name">Name</th>
+            <th id="row-phone">Phone</th>
+            <th id="row-email">Email</th>
+            <th id="row-trans"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {contacts
+            .filter(
+              ({ firstName, lastName }) =>
+                `${firstName} ${lastName}`
+                  .toLowerCase()
+                  .includes(search.toLowerCase()) ||
+                `${lastName} ${firstName}`
+                  .toLowerCase()
+                  .includes(search.toLowerCase())
+            )
+            .map(({ firstName, lastName, phone, email, id }) => (
+              <tr key={id}>
+                <td>{`${firstName} ${lastName}`}</td>
+                <td>{phone}</td>
+                <td>{email}</td>
+                <td>
+                  <Link to={`/addTransaction/${id}`}>
+                    <img src={Icon} alt="Add Transaction" />
+                  </Link>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

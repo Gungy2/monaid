@@ -8,7 +8,7 @@ export const openDatabase = () =>
     type: "sqlite",
     database: "database.sqlite",
     synchronize: true,
-    logging: true,
+    logging: false,
     entities: [Contact, Transaction],
     cli: {
       entitiesDir: "entity",

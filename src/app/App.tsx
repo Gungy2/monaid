@@ -1,9 +1,10 @@
-import "./style/App.scss"
+import "./style/App.scss";
 
 import React from "react";
 import Contacts from "./Contacts";
 import AddContact from "./AddContact";
 import AddTransaction from "./AddTransaction";
+import Welcome from "./Welcome";
 import { HashRouter as Router, Link, Switch, Route } from "react-router-dom";
 import Transactions from "./Transactions";
 
@@ -42,9 +43,7 @@ export default function App() {
           <AddTransaction />
         </Route>
         <Route path="/">
-          <h1>Welcome to</h1>
-          <h1 id="monaid">Monaid</h1>
-          <h2>Never forget what's rightfully yours...</h2>
+          <Welcome />
         </Route>
       </Switch>
     </Router>
