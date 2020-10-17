@@ -19,7 +19,7 @@ export default function AddContact() {
 
   return (
     <>
-      <h1>Adding new Contact</h1>
+      <h1>Adding New Contact</h1>
       <form id="contactForm" onSubmit={handleSubmit(storeContact)}>
         <label htmlFor="firstName">First Name:</label>
         <input

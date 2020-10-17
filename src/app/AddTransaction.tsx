@@ -9,12 +9,10 @@ export default function AddTransaction() {
   const { register, handleSubmit } = useForm<Transaction>();
   const [contact, setContact] = useState<Contact | null>(null);
   const history = useHistory();
-  let params: { [key: string]: string } = useParams();
-
+  const params: { [key: string]: string } = useParams();
 
   useEffect(() => {
-    console.log(params.id);
-    ipcRenderer.invoke("GET_CONTACT", params.id).then(setContact);
+    ipcRenderer.invoke("GET_CONTACT", params.contactId).then(setContact);
   }, []);
 
   async function storeTransaction(transaction: Transaction) {

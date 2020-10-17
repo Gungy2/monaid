@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, dialog } from "electron";
 import path from "path";
 import os from "os";
 import Contact from "./entity/Contact";
@@ -103,7 +103,6 @@ ipcMain.handle("GET_CONTACT", async (_event, id: number) => {
 });
 
 ipcMain.on("ADD_NEW_TRANSACTION", async (_event, transaction: Transaction) => {
-  console.log(transaction);
   if (database) {
     await database
       .createQueryBuilder()
@@ -112,4 +111,25 @@ ipcMain.on("ADD_NEW_TRANSACTION", async (_event, transaction: Transaction) => {
       .values(transaction)
       .execute();
   }
+});
+
+ipcMain.on("DELETE_TRANSACTION", async (_event, id: number) => {
+  console.log(id);
+  if (database) {
+    await database
+      .createQueryBuilder()
+      .delete()
+      .from(Transaction)
+      .where("id = :id", { id: id })
+      .execute();
+  }
+});
+
+ipcMain.handle("SURE_DELETE_TRANSACTION", async (_event) => {
+  const answer = await dialog.showMessageBox({
+    message: "Are you sure you want to delete this transaction?",
+    type: "question",
+    buttons: ["Yes", "Close"],
+  });
+  return answer.response == 0;
 });

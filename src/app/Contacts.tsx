@@ -36,12 +36,8 @@ export default function Contacts() {
           {contacts
             .filter(
               ({ firstName, lastName }) =>
-                `${firstName} ${lastName}`
-                  .toLowerCase()
-                  .includes(search.toLowerCase()) ||
-                `${lastName} ${firstName}`
-                  .toLowerCase()
-                  .includes(search.toLowerCase())
+                `${firstName} ${lastName}`.includes(search.toLowerCase()) ||
+                `${lastName} ${firstName}`.includes(search.toLowerCase())
             )
             .map(({ firstName, lastName, phone, email, id }) => (
               <tr key={id}>

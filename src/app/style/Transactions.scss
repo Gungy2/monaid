@@ -1,0 +1,96 @@
+@import "./variables";
+
+#transactions {
+  #options {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row nowrap;
+
+    button {
+      background-color: inherit;
+      padding: 20px 30px;
+      border: none;
+      border-radius: 10px;
+
+      h1 {
+        font-family: inherit;
+        font-weight: normal;
+
+        margin: 0;
+        border: none;
+        padding: 0;
+        color: $text;
+        text-align: center;
+        font-size: 3em;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px $shadow;
+      }
+
+      &:hover {
+        transition: background-color 0.5s;
+        cursor: pointer;
+        background-color: $shadow;
+      }
+
+      &#activated {
+        font-weight: 700 !important;
+        text-decoration: underline;
+        text-decoration-color: $text;
+        text-underline-position: under;
+      }
+
+      &:not(#activated) {
+        font-weight: 400;
+        text-decoration: none;
+      }
+    }
+  }
+
+  table {
+    table-layout: fixed;
+    white-space: nowrap;
+    width: 90vw;
+    min-width: 700px;
+    text-shadow: 2px 2px $shadow;
+    font-size: 1.5em;
+    margin: 50px auto;
+    border-collapse: collapse;
+
+    tr {
+      border-bottom: 2px solid $shadow;
+    }
+
+    th {
+      padding: 10px;
+      font-size: 1.25em;
+
+      &#row-date {
+        width: 30%;
+      }
+
+      &#row-name {
+        width: 40%;
+      }
+
+      &#row-sum {
+        width: 20%;
+      }
+
+      #row-delete {
+        width: 10%;
+      }
+    }
+
+    td {
+      padding: 10px;
+      font-size: 1em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &:nth-child(3) {
+        text-transform: capitalize;
+      }
+    }
+  }
+}
