@@ -1,27 +1,27 @@
 import React from "react";
 import Contact from "../entity/Contact";
+import { Link } from "react-router-dom";
+import Transaction from "../entity/Transaction";
 
 export default function TransactionRow({
-  date,
-  contact,
-  sum,
+  transaction,
   deleteTransaction,
 }: {
-  date: Date;
-  contact: Contact;
-  sum: number;
+  transaction: Transaction;
   deleteTransaction: () => void;
 }) {
   return (
     <tr className="transaction-row">
       <td>
-        <button id="delete" onClick={deleteTransaction}>
+        <button className="delete" onClick={deleteTransaction}>
           X
         </button>
       </td>
-      <td>{`${date}`}</td>
-      <td>{`${contact.firstName} ${contact.lastName}`}</td>
-      <td>{`${sum}`}</td>
+      <td>{`${transaction.date}`}</td>
+      <td>
+        <Link to="/contacts">{`${transaction.contact.firstName} ${transaction.contact.lastName}`}</Link>
+      </td>
+      <td>{`${transaction.sum}`}</td>
     </tr>
   );
 }

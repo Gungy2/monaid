@@ -7,6 +7,10 @@ import "./style/Transactions.scss";
 export default function Transactions() {
   const [transactions, setTransactions] = useState([] as Transaction[]);
   const [showLoans, setShowLoans] = useState(true);
+  const [{ descending, attr }, setOrdering] = useState({
+    descending: true,
+    attr: "date",
+  });
 
   useEffect(() => {
     ipcRenderer.invoke("GET_ALL_TRANSACTIONS").then(setTransactions);
@@ -17,7 +21,53 @@ export default function Transactions() {
     if (answer) {
       ipcRenderer.send("DELETE_TRANSACTION", transactionId);
       ipcRenderer.invoke("GET_ALL_TRANSACTIONS").then(setTransactions);
-      console.log("ok, deleting");
+    }
+  }
+
+  function orderBy(attributeClicked: "date" | "name" | "sum") {
+    console.log(`ordering by ${attributeClicked}`);
+    if (attr == attributeClicked) {
+      setOrdering({ attr: attr, descending: !descending });
+    } else {
+      setOrdering({ attr: attributeClicked, descending: false });
+    }
+  }
+
+  function sortByName(t1: Transaction, t2: Transaction, descending: boolean) {
+    const result = descending ? -1 : 1;
+    return result * t1.contact.lastName.localeCompare(t2.contact.lastName);
+  }
+
+  function sortByDate(t1: Transaction, t2: Transaction, descending: boolean) {
+    const result = descending ? -1 : 1;
+    if (t1.date > t2.date) {
+      return result;
+    }
+    if (t1.date < t2.date) {
+      return -result;
+    }
+    return result * t1.contact.lastName.localeCompare(t2.contact.lastName);
+  }
+
+  function sortBySum(t1: Transaction, t2: Transaction, descending: boolean) {
+    const result = descending ? -1 : 1;
+    if (t1.sum > t2.sum) {
+      return result;
+    }
+    if (t1.sum < t2.sum) {
+      return -result;
+    }
+    return result * t1.contact.lastName.localeCompare(t2.contact.lastName);
+  }
+
+  function sortingFunction(t1: Transaction, t2: Transaction) {
+    switch (attr) {
+      case "date":
+        return sortByDate(t1, t2, descending);
+      case "sum":
+        return sortBySum(t1, t2, descending);
+      default:
+        return sortByName(t1, t2, descending);
     }
   }
 
@@ -45,9 +95,21 @@ export default function Transactions() {
         <thead>
           <tr>
             <th id="row-delete"></th>
-            <th id="row-date">Date</th>
-            <th id="row-name">Name</th>
-            <th id="row-sum">Sum</th>
+            <th id="row-date">
+              <button onClick={() => orderBy("date")}>
+                Date {attr == "date" ? (descending ? "▼" : "▲") : ""}
+              </button>
+            </th>
+            <th id="row-name">
+              <button onClick={() => orderBy("name")}>
+                Name {attr == "name" ? (descending ? "▼" : "▲") : ""}
+              </button>
+            </th>
+            <th id="row-sum">
+              <button onClick={() => orderBy("sum")}>
+                Sum {attr == "sum" ? (descending ? "▼" : "▲") : ""}
+              </button>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -55,14 +117,13 @@ export default function Transactions() {
             .filter(
               (transaction) => (transaction.type === "loan") === showLoans
             )
-            .map(({ date, contact, sum, id }: Transaction) => (
+            .sort(sortingFunction)
+            .map((transaction: Transaction) => (
               <TransactionRow
-                date={date}
-                contact={contact}
-                sum={sum}
-                key={id}
+                transaction={transaction}
+                key={transaction.id}
                 deleteTransaction={() => {
-                  deleteTransaction(id);
+                  deleteTransaction(transaction.id);
                 }}
               />
             ))}
