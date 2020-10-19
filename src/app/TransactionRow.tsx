@@ -1,5 +1,4 @@
 import React from "react";
-import Contact from "../entity/Contact";
 import { Link } from "react-router-dom";
 import Transaction from "../entity/Transaction";
 
