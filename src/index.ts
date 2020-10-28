@@ -1,19 +1,23 @@
 import { app, BrowserWindow, ipcMain, dialog, Menu } from "electron";
-import path from "path";
-import os from "os";
-import Contact from "./entity/Contact";
-import Transaction from "./entity/Transaction";
-import { openDatabase } from "./database";
-import { Connection, createQueryBuilder, getConnection } from "typeorm";
+import Store, { Schema } from "electron-store";
+import { Contact, Transaction } from "./entities";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
+
+var store: Store<DB>;
+
+interface DB {
+  contacts: Contact[];
+  transactions: Transaction[];
+}
+
+var transactionId = 1;
+var contactId = 1;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
-
-var database: Connection | null = null;
 
 const createWindow = async () => {
   // Create the browser window.
@@ -27,11 +31,23 @@ const createWindow = async () => {
     webPreferences: {
       nodeIntegration: true,
     },
+    icon: "assets/favicon.ico",
   });
 
-  Menu.setApplicationMenu(Menu.buildFromTemplate([]));
+  //Menu.setApplicationMenu(Menu.buildFromTemplate([]));
 
-  database = await openDatabase();
+  const schema: Schema<DB> = {
+    contacts: {
+      type: "array",
+      default: [],
+    },
+    transactions: {
+      type: "array",
+      default: [],
+    },
+  };
+
+  store = new Store({ schema });
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
@@ -62,58 +78,35 @@ app.on("activate", () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-ipcMain.handle("GET_ALL_CONTACTS", async () => {
-  if (database) {
-    return await database.getRepository(Contact).find();
-  }
+ipcMain.handle("GET_ALL_CONTACTS", () => store.get("contacts"));
+
+ipcMain.on("ADD_NEW_CONTACT", function storeContact(_event, contact: Contact) {
+  store.set(
+    "contacts",
+    store.get("contacts").concat({ id: contactId, ...contact })
+  );
+  contactId++;
 });
 
-ipcMain.on("ADD_NEW_CONTACT", (_event, contact: Contact) => {
-  if (database) {
-    database
-      .createQueryBuilder()
-      .insert()
-      .into(Contact)
-      .values(contact)
-      .execute();
-  }
+ipcMain.handle("GET_ALL_TRANSACTIONS", () => store.get("transactions"));
+
+ipcMain.handle("GET_CONTACT", (_event, id: number) =>
+  store.get("contacts").find((contact) => contact.id === id)
+);
+
+ipcMain.on("ADD_NEW_TRANSACTION", (_event, transaction: Transaction) => {
+  store.set(
+    "transactions",
+    store.get("transactions").concat({ id: transactionId, ...transaction })
+  );
+  transactionId++;
 });
 
-ipcMain.handle("GET_ALL_TRANSACTIONS", async () => {
-  if (database) {
-    const transactions = await database
-      .getRepository(Transaction)
-      .find({ relations: ["contact"] });
-    return transactions;
-  }
-});
-
-ipcMain.handle("GET_CONTACT", async (_event, id: number) => {
-  if (database) {
-    return await database.getRepository(Contact).findOne(id);
-  }
-});
-
-ipcMain.on("ADD_NEW_TRANSACTION", async (_event, transaction: Transaction) => {
-  if (database) {
-    await database
-      .createQueryBuilder()
-      .insert()
-      .into(Transaction)
-      .values(transaction)
-      .execute();
-  }
-});
-
-ipcMain.on("DELETE_TRANSACTION", async (_event, id: number) => {
-  if (database) {
-    await database
-      .createQueryBuilder()
-      .delete()
-      .from(Transaction)
-      .where("id = :id", { id: id })
-      .execute();
-  }
+ipcMain.on("DELETE_TRANSACTION", (_event, id: number) => {
+  store.set(
+    "transactions",
+    store.get("transactions").filter((t) => t.id !== id)
+  );
 });
 
 ipcMain.handle("SURE_DELETE_TRANSACTION", async (_event) => {

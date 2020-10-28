@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Transaction from "../entity/Transaction";
+import { Transaction } from "../entities";
 import { ipcRenderer } from "electron";
 import TransactionRow from "./TransactionRow";
 import "./style/Transactions.scss";
@@ -25,7 +25,6 @@ export default function Transactions() {
   }
 
   function orderBy(attributeClicked: "date" | "name" | "sum") {
-    console.log(`ordering by ${attributeClicked}`);
     if (attr == attributeClicked) {
       setOrdering({ attr: attr, descending: !descending });
     } else {
@@ -115,7 +114,7 @@ export default function Transactions() {
         <tbody>
           {transactions
             .filter(
-              (transaction) => (transaction.type === "loan") === showLoans
+              (transaction) => (transaction.trans === "loan") === showLoans
             )
             .sort(sortingFunction)
             .map((transaction: Transaction) => (

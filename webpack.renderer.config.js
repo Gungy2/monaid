@@ -16,13 +16,12 @@ rules.push({
 });
 
 rules.push({
-  test: /\.woff(2)?$/,
+  test: /\.woff2?$/,
   use: [
     {
       loader: "url-loader",
       options: {
-        limit: 10000,
-        name: "./font/[hash].[ext]",
+        name: "./assets/[name].[ext]?[hash]",
         mimetype: "application/font-woff",
       },
     },
@@ -30,8 +29,15 @@ rules.push({
 });
 
 rules.push({
-  test: /\.(png|svg|jpg|gif)$/,
-  use: ["file-loader"],
+  test: /\.svg$/,
+  use: [
+    {
+      loader: "svg-url-loader",
+      options: {
+        limit: 10000,
+      },
+    },
+  ],
 });
 
 module.exports = {

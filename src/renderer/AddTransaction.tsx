@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Transaction from "../entity/Transaction";
+import { Transaction } from "../entities";
 import { useHistory, useParams } from "react-router-dom";
 import { ipcRenderer } from "electron";
 import { useForm } from "react-hook-form";
-import Contact from "../entity/Contact";
+import { Contact } from "../entities";
 import "./style/AddTransaction.scss";
 
 export default function AddTransaction() {
@@ -11,18 +11,14 @@ export default function AddTransaction() {
   const [contact, setContact] = useState<Contact | null>(null);
   const history = useHistory();
   const params: { [key: string]: string } = useParams();
-  const watchType = watch("type");
+  const watchType = watch("trans");
 
   useEffect(() => {
-    ipcRenderer.invoke("GET_CONTACT", params.contactId).then(setContact);
+    ipcRenderer.invoke("GET_CONTACT", +params.contactId).then(setContact);
   }, []);
 
   async function storeTransaction(transaction: Transaction) {
     transaction.sum = +transaction.sum;
-
-    transaction.date = new Date(transaction.date);
-    transaction.date.setHours(0, 0, 0, 0);
-
     if (contact) {
       transaction.contact = contact;
     }
@@ -48,7 +44,7 @@ export default function AddTransaction() {
           <input
             type="radio"
             id="loan-choice"
-            name="type"
+            name="trans"
             value="loan"
             ref={register}
             defaultChecked
@@ -63,7 +59,7 @@ export default function AddTransaction() {
           <input
             type="radio"
             id="borrow-choice"
-            name="type"
+            name="trans"
             value="borrow"
             ref={register}
           />

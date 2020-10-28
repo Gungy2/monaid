@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Contact from "../entity/Contact";
+import { Contact } from "../entities";
 import { ipcRenderer } from "electron";
 import { Link } from "react-router-dom";
 import "./style/Contacts.scss";

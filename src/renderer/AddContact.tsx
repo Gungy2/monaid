@@ -1,5 +1,5 @@
 import React from "react";
-import Contact from "../entity/Contact";
+import { Contact } from "../entities";
 import { useHistory } from "react-router-dom";
 import { ipcRenderer } from "electron";
 import { useForm } from "react-hook-form";

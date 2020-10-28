@@ -1,6 +1,6 @@
 import { ipcRenderer } from "electron";
 import React, { useEffect, useState } from "react";
-import Transaction from "../entity/Transaction";
+import { Transaction } from "../entities";
 import {
   Bar,
   CartesianGrid,
@@ -66,16 +66,16 @@ export default function Statistics() {
     } {
       return {
         date: acc.date,
-        loan: acc.loan - (curr.type === "loan" ? curr.sum : 0),
-        borrow: acc.borrow + (curr.type === "borrow" ? curr.sum : 0),
+        loan: acc.loan - (curr.trans === "loan" ? curr.sum : 0),
+        borrow: acc.borrow + (curr.trans === "borrow" ? curr.sum : 0),
       };
     }
 
     function totalReducer(acc: number, curr: Transaction): number {
       return (
         acc -
-        (curr.type === "loan" ? curr.sum : 0) +
-        +(curr.type === "borrow" ? curr.sum : 0)
+        (curr.trans === "loan" ? curr.sum : 0) +
+        +(curr.trans === "borrow" ? curr.sum : 0)
       );
     }
 
@@ -155,11 +155,11 @@ export default function Statistics() {
       <h1>This Month's Statistics</h1>
       <h2>
         From {start.toDateString()} to {end.toDateString()} you gave{" "}
-        <span style={{ color: "#1d3557", textShadow: "0.5px 0.5px #f1faee" }}>
+        <span style={{ color: "#e63946", textShadow: "0.5px 0.5px #f1faee" }}>
           {totals.loans}
         </span>{" "}
         and you received{" "}
-        <span style={{ color: "#e63946", textShadow: "0.5px 0.5px #f1faee" }}>
+        <span style={{ color: "#1d3557", textShadow: "0.5px 0.5px #f1faee" }}>
           {totals.borrows}
         </span>{" "}
         !
@@ -227,9 +227,9 @@ export default function Statistics() {
               <tr
                 key={transaction.id}
                 style={{
-                  color: transaction.type === "loan" ? "#e63946" : "#1d3557",
+                  color: transaction.trans === "loan" ? "#e63946" : "#1d3557",
                   textShadow: `1px 1px ${
-                    transaction.type === "loan" ? "black" : "#e63946"
+                    transaction.trans === "loan" ? "black" : "#e63946"
                   })`,
                 }}
               >
