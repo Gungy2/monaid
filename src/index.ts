@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, dialog } from "electron";
+import { app, BrowserWindow, ipcMain, dialog, Menu } from "electron";
 import path from "path";
 import os from "os";
 import Contact from "./entity/Contact";
@@ -29,20 +29,12 @@ const createWindow = async () => {
     },
   });
 
+  Menu.setApplicationMenu(Menu.buildFromTemplate([]));
+
   database = await openDatabase();
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-
-  // Open the DevTools.
-  let ses = mainWindow.webContents.session;
-  await ses.loadExtension(
-    path.join(
-      os.homedir(),
-      "/.config/google-chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.8.2_0"
-    )
-  );
-  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished

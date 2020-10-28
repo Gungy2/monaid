@@ -97,6 +97,7 @@
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
+    "node-pre-gyp": "^0.15.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-hook-form": "^6.9.6",
