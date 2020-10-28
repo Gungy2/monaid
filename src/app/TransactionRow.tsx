@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Transaction from "../entity/Transaction";
+import { Transaction } from "../entities";
 import "./style/TransactionRow.scss";
 
 export default function TransactionRow({
