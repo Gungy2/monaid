@@ -14,7 +14,7 @@ export default function Contacts() {
   }, []);
 
   return (
-    <div id="contacts">
+    <main id="contacts">
       <h1>Contacts</h1>
       <input
         type="search"
@@ -53,6 +53,6 @@ export default function Contacts() {
             ))}
         </tbody>
       </table>
-    </div>
+    </main>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Transaction from "../entity/Transaction";
+import "./style/TransactionRow.scss";
 
 export default function TransactionRow({
   transaction,
@@ -32,7 +33,7 @@ export default function TransactionRow({
         <td>{`${transaction.sum}`}</td>
       </tr>
       {mentions ? (
-        <tr>
+        <tr className="transaction-row">
           <td colSpan={4}>
             <em>Mentions: </em>
             {transaction.mentions}

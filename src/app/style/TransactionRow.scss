@@ -1,0 +1,42 @@
+@import "./variables";
+
+.transaction-row {
+  border-bottom: 2px solid $shadow;
+  cursor: pointer;
+
+  td {
+    padding: 10px;
+    font-size: 1em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    .delete {
+      color: $text;
+      background-color: $red;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      font-size: 1em;
+      border-radius: 3px;
+      box-shadow: 2px 2px $shadow;
+
+      &:hover {
+        box-shadow: -1px -1px $shadow;
+      }
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    &:nth-child(3) {
+      text-transform: capitalize;
+    }
+  }
+}

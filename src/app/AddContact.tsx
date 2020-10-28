@@ -19,7 +19,7 @@ export default function AddContact() {
   }
 
   return (
-    <div id="add-contact">
+    <main id="add-contact">
       <h1>Adding New Contact</h1>
       <form id="contactForm" onSubmit={handleSubmit(storeContact)}>
         <label htmlFor="firstName">First Name</label>
@@ -56,6 +56,6 @@ export default function AddContact() {
 
         <input type="submit" value="Create New Contact" />
       </form>
-    </div>
+    </main>
   );
 }

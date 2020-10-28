@@ -72,7 +72,7 @@ export default function Transactions() {
   }
 
   return (
-    <div id="transactions">
+    <main id="transactions">
       <div id="options">
         <button
           onClick={() => {
@@ -129,6 +129,6 @@ export default function Transactions() {
             ))}
         </tbody>
       </table>
-    </div>
+    </main>
   );
 }

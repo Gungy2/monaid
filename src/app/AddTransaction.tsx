@@ -31,7 +31,7 @@ export default function AddTransaction() {
   }
 
   return (
-    <div id="add-transaction">
+    <main id="add-transaction">
       <h1>
         Adding New Transaction to
         {contact ? ` ${contact.firstName} ${contact.lastName}` : "..."}
@@ -101,6 +101,6 @@ export default function AddTransaction() {
 
         <input type="submit" value="Create New Transaction" />
       </form>
-    </div>
+    </main>
   );
 }

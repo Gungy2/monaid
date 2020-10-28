@@ -41,6 +41,14 @@
       url("../../../assets/amatic-sc-v15-latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
+@mixin header-format($size) {
+  font-weight: 800;
+  text-align: center;
+  font-size: $size;
+  letter-spacing: 5px;
+  text-shadow: 2px 2px $shadow;
+}
+
 $bg: #457b9d;
 $bg2: #a8dadc;
 $text: #f1faee;
