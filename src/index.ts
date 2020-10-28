@@ -114,7 +114,6 @@ ipcMain.on("ADD_NEW_TRANSACTION", async (_event, transaction: Transaction) => {
 });
 
 ipcMain.on("DELETE_TRANSACTION", async (_event, id: number) => {
-  console.log(id);
   if (database) {
     await database
       .createQueryBuilder()

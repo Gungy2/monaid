@@ -1,12 +1,12 @@
-import "./style/App.scss";
-
 import React from "react";
 import Contacts from "./Contacts";
 import AddContact from "./AddContact";
 import AddTransaction from "./AddTransaction";
 import Welcome from "./Welcome";
-import { HashRouter as Router, Link, Switch, Route } from "react-router-dom";
+import Statistics from "./Statistics";
 import Transactions from "./Transactions";
+import { HashRouter as Router, Link, Switch, Route } from "react-router-dom";
+import "./style/App.scss";
 
 export default function App() {
   return (
@@ -24,7 +24,7 @@ export default function App() {
               <Link to="/transactions">Transactions</Link>
             </li>
             <li>
-              <Link to="/">Statistics</Link>
+              <Link to="/statistics">Statistics</Link>
             </li>
           </ul>
         </nav>
@@ -41,6 +41,9 @@ export default function App() {
         </Route>
         <Route path="/addTransaction/:contactId">
           <AddTransaction />
+        </Route>
+        <Route path="/statistics">
+          <Statistics />
         </Route>
         <Route path="/">
           <Welcome />

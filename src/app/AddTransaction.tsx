@@ -19,10 +19,13 @@ export default function AddTransaction() {
 
   async function storeTransaction(transaction: Transaction) {
     transaction.sum = +transaction.sum;
+
+    transaction.date = new Date(transaction.date);
+    transaction.date.setHours(0, 0, 0, 0);
+
     if (contact) {
       transaction.contact = contact;
     }
-    console.log(transaction);
     ipcRenderer.send("ADD_NEW_TRANSACTION", transaction);
     history.push("/transactions");
   }
@@ -72,7 +75,10 @@ export default function AddTransaction() {
           name="date"
           id="date"
           defaultValue={new Date().toISOString().substring(0, 10)}
-          ref={register({ required: true })}
+          ref={register({
+            required: true,
+            validate: (value) => new Date(value) <= new Date(),
+          })}
         />
 
         <label htmlFor="sum">Sum</label>

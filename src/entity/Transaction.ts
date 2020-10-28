@@ -7,7 +7,7 @@ export default class Transaction {
   id!: number;
 
   @Column()
-  type!: string;
+  type!: "loan" | "borrow";
 
   @Column("float")
   sum!: number;
