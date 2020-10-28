@@ -1,3 +1,3 @@
 # monaid
 
-Simple app to trach and visualize your finances.
+Simple app to track and visualize your finances.
