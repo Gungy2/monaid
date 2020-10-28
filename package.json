@@ -19,7 +19,9 @@
   "license": "MIT",
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "icon": "/assets/favicon.ico"
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
@@ -51,8 +53,8 @@
               "config": "./webpack.renderer.config.js",
               "entryPoints": [
                 {
-                  "html": "./src/index.html",
-                  "js": "./src/renderer.tsx",
+                  "html": "./src/renderer/index.html",
+                  "js": "./src/renderer/renderer.tsx",
                   "name": "main_window"
                 }
               ]
@@ -90,6 +92,7 @@
     "sass": "^1.27.0",
     "sass-loader": "^10.0.4",
     "style-loader": "^1.3.0",
+    "svg-url-loader": "^6.0.0",
     "ts-loader": "^8.0.7",
     "typescript": "^4.0.5",
     "url-loader": "^4.1.1",

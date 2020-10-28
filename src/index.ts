@@ -31,9 +31,10 @@ const createWindow = async () => {
     webPreferences: {
       nodeIntegration: true,
     },
+    icon: "assets/favicon.ico",
   });
 
-  Menu.setApplicationMenu(Menu.buildFromTemplate([]));
+  //Menu.setApplicationMenu(Menu.buildFromTemplate([]));
 
   const schema: Schema<DB> = {
     contacts: {
