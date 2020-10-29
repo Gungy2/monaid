@@ -87,7 +87,7 @@ export default function Transactions() {
           }}
           id={!showLoans ? "activated" : ""}
         >
-          <h1>Burrows</h1>
+          <h1>Borrows</h1>
         </button>
       </div>
       <table>
