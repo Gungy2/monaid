@@ -34,7 +34,7 @@ const createWindow = async () => {
     icon: "assets/favicon.ico",
   });
 
-  //Menu.setApplicationMenu(Menu.buildFromTemplate([]));
+  Menu.setApplicationMenu(Menu.buildFromTemplate([]));
 
   const schema: Schema<DB> = {
     contacts: {
@@ -83,7 +83,7 @@ ipcMain.handle("GET_ALL_CONTACTS", () => store.get("contacts"));
 ipcMain.on("ADD_NEW_CONTACT", function storeContact(_event, contact: Contact) {
   store.set(
     "contacts",
-    store.get("contacts").concat({ id: contactId, ...contact })
+    store.get("contacts").concat({ ...contact, id: contactId })
   );
   contactId++;
 });
@@ -97,7 +97,7 @@ ipcMain.handle("GET_CONTACT", (_event, id: number) =>
 ipcMain.on("ADD_NEW_TRANSACTION", (_event, transaction: Transaction) => {
   store.set(
     "transactions",
-    store.get("transactions").concat({ id: transactionId, ...transaction })
+    store.get("transactions").concat({ ...transaction, id: transactionId })
   );
   transactionId++;
 });
